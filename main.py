@@ -387,5 +387,13 @@ def github_client_id():
     return {"github_client_id": git_hub_client_id}
 
 # # __________________TO RUN____________________________
-# # uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+# # uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
+
+# Add Prometheus metrics
+from prometheus_fastapi_instrumentator import Instrumentator
+Instrumentator().instrument(app).expose(app)
+
+if __name__ == "__main__":
+   import uvicorn
+   uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
